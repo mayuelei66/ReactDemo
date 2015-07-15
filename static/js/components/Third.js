@@ -2,6 +2,7 @@ var React = require("react");
 var Col = require("react-bootstrap").Col;
 var Row = require("react-bootstrap").Row;
 var Button = require("react-bootstrap").Button;
+var ProgressBar = require("react-bootstrap").ProgressBar;
 var _ = require("underscore");
 
 function init(){
@@ -16,7 +17,8 @@ function init(){
         matrix : initMatrix,
         recall : false,
         history : [{"history":initMatrix}],
-        display : false
+        display : false,
+        percent : 0
     });
 }
 
@@ -96,11 +98,13 @@ var Third = React.createClass({
     handleDisplay : function(){
         var that = this;
         var history = _.clone(this.state.history);
+        var total = history.length;
         this.dis = setInterval(function(){
             if(history.length != 1){
                 that.setState({
                     matrix : history.shift()["history"],
-                    display : true
+                    display : true,
+                    percent : (total - history.length)/total*100
                 });
             }else{
                 that.stopDisplay();
@@ -124,21 +128,24 @@ var Third = React.createClass({
         return (
             <Row className="content">
                 <Col xs={12} md={6} mdOffset={3}>
-                    <h1>React 2048</h1>
+                    <h1>React 2048(状态机)</h1>
                     <hr/>
                     <div className="text-center">
                         <div className={className}>
-                        <button className="btn btn-primary btn-lg" disabled={display ? true : false} onClick={this.initGame}>
-                            Start
-                        </button>
-                        <button style={{marginLeft:"50"}} disabled={this.state.history.length > 1 ? false : true} className="btn btn-success btn-lg" onClick={this.handleClick}>
-                            Back
-                        </button>
-                        <button style={{marginLeft:"50"}} disabled={display ? true : false} className="btn btn-danger btn-lg" onClick={this.handleStop}>
-                            Pause
-                        </button>
+                            <button className="btn btn-primary btn-lg" disabled={display ? true : false} onClick={this.initGame}>
+                                Start
+                            </button>
+                            <button style={{marginLeft:"50"}} disabled={this.state.history.length > 1 ? false : true} className="btn btn-success btn-lg" onClick={this.handleClick}>
+                                Back
+                            </button>
+                            <button style={{marginLeft:"50"}} disabled={display ? true : false} className="btn btn-danger btn-lg" onClick={this.handleStop}>
+                                Pause
+                            </button>
+                            <Button bsSize="large" bsStyle="info" style={{width:"65%",marginTop:"20"}} onClick={this.handleDisplay}>Display一下</Button>
                         </div>
-                        <Button bsSize="large" bsStyle="info" style={{width:"65%",marginTop:"20"}} onClick={this.handleDisplay}>Display一下</Button>
+                        <div className={!display ? "hidden" : "show"}>
+                            <ProgressBar now={this.state.percent} label='%(percent)s%' />
+                        </div>
                     </div>
                     <div className="text-center">
                         <div className="game-box">

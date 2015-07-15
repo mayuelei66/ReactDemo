@@ -17,6 +17,8 @@
     "browserify": "^10.2.4",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.2.0",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.1",
     "react-router": "^0.13.3",

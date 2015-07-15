@@ -32,7 +32,7 @@ var Second = React.createClass({
         return (
             <Row className="content">
                 <Col xs={12} md={6} mdOffset={3}>
-                    <h1>React组件使用方式</h1>
+                    <h1>React 组件与单向数据流动</h1>
                     <hr/>
                     <form className='form-horizontal'>
                         <Input type='text' label="电话搜索:" labelClassName='col-xs-2' wrapperClassName='col-xs-8'

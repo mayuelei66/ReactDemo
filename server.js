@@ -1,6 +1,6 @@
 var http = require('http'),
     fs = require('fs');
-
+var port = 8000;
 http.createServer(function (req, res) {
     if(req.url === "/"){ //req.url has the pathname, check if it conatins '.html'
         fs.readFile(__dirname + '/index.html', function (err, data) {
@@ -33,5 +33,4 @@ http.createServer(function (req, res) {
         });
 
     }
-
-}).listen(8000);
+}).listen(port);
